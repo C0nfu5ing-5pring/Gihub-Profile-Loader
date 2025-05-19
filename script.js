@@ -5,7 +5,10 @@ let reposContainer = document.querySelector(".reposContainer");
 
 function getUserData(username) {
   return fetch(`https://api.github.com/users/${username}`).then((raw) => {
-    if (!raw.ok) throw new Error("Something went wrong.");
+    if (!raw.ok) {
+      alert("User not found. Please check the username and try again.");
+      location.reload();
+    }
     return raw.json();
   });
 }
@@ -14,7 +17,10 @@ function getUserRepoData(username) {
   return fetch(
     `https://api.github.com/users/${username}/repos?sort=updated`
   ).then((raw) => {
-    if (!raw.ok) throw new Error("Something went wrong.");
+    if (!raw.ok) {
+      alert("Repository not found. Please check the username and try again.");
+      location.reload();
+    }
     return raw.json();
   });
 }
@@ -72,7 +78,7 @@ function decorateCard(details) {
 }
 
 function decorateRepo(details) {
-  console.log(details);
+  // console.log(details);
   for (let i = 0; i < 6; i++) {
     let repo = details[i];
     let data = `
